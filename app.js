@@ -9,11 +9,10 @@ const User = require("./schema/user");
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-
-app.get("/users", async (req, res)=>{
-    const user = await User.find();
+app.get("/users/:age", async (req, res)=>{
+    const users = await User.find({age: req.params.age});
     return res.status(200).json({
-        data: user,
+        data: users,
     });
 });
 
@@ -27,13 +26,28 @@ app.get("/users/:id", async(req, res)=>{
     });
 });
 
+app.get("/users/cell/:cell", async(req, res)=>{
+    const user = await User.findOne({cell: req.params.cell});
+    if(!user){
+        return res.status(404).json({"error": "Usuario não encontrado"});
+    }
+    return res.status(200).json({
+        data: user
+    });
+});
+
 app.post("/users", async (req, res)=>{
     if((await User.findById(req.body.id))) {
         return res.status(400).json({error: "Id ja existe na base de dados"});
+    }else if(req.body.cell.toString().length > 11){
+        return res.status(403).json({error: "Número de telefone maior que 11 digitos"});
     }
+
     const user = {
         name: req.body.name,
-        cpf: req.body.cpf
+        cpf: req.body.cpf,
+        age: req.body.age,
+        cell: req.body.cell
     };
     await (new User(user).save());
     return res.status(200).json({data: user});
