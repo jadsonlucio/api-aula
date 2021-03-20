@@ -1,9 +1,13 @@
 ###
-GET http://localhost:3000/users HTTP/1.1
+GET http://localhost:3000/users/22 HTTP/1.1
 content-type: application/json
 
 ###
-GET http://localhost:3000/users/604967b48950f35ed853fc62 HTTP/1.1
+GET http://localhost:3000/users/60567ce969b4b0840dcf67eb HTTP/1.1
+content-type: application/json
+
+###
+GET http://localhost:3000/users/cell/9 HTTP/1.1
 content-type: application/json
 
 ###
@@ -12,11 +16,13 @@ content-type: application/json
 
 {
     "name":"Aliny",
-    "cpf": "243423"
+    "cpf": "243423",
+    "age": 22,
+    "cell": 121212132
 }
 
 ###
-PATCH http://localhost:3000/users/604967b48950f35ed853fc64 HTTP/1.1
+PATCH http://localhost:3000/users/60567d0469b4b0840dcf67ec HTTP/1.1
 content-type: application/json
 
 {
@@ -24,5 +30,5 @@ content-type: application/json
 }
 
 ###
-DELETE  http://localhost:3000/users/604967b48950f35ed853fc65 HTTP/1.1
+DELETE  http://localhost:3000/users/60567d0469b4b0840dcf67ec HTTP/1.1
 content-type: application/json
